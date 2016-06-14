@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{455F8944-6EB4-AFB2-ED00-117FD31A0EEC}") = "ForceBot", "Assembly-CSharp.csproj", "{2E5D72FB-A7A2-9570-B5B1-4D0D12D0387A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E5D72FB-A7A2-9570-B5B1-4D0D12D0387A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5D72FB-A7A2-9570-B5B1-4D0D12D0387A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5D72FB-A7A2-9570-B5B1-4D0D12D0387A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5D72FB-A7A2-9570-B5B1-4D0D12D0387A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
