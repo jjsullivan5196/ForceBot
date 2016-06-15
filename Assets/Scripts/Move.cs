@@ -11,7 +11,8 @@ public class Move : MonoBehaviour {
 	private bool start;
 	private float timeElapsed;
 	private Vector3 oldAcc;
-	private Vector3 oldVel;
+	private Vector3 newAcc;
+	private int frameCount;
 
 	// Use this for initialization
 	void Start () {
@@ -24,11 +25,12 @@ public class Move : MonoBehaviour {
 		timeElapsed = 0;
 		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 		oldAcc = new Vector3(0, 0, 0);
-		oldVel = new Vector3(0, 0, 0);
+		newAcc = new Vector3(0, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		move.transform.rotation.eulerAngles.Set(move.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, move.transform.rotation.eulerAngles.z);
 		timeElapsed += Time.deltaTime;
 		if(Input.GetButtonDown("Fire1")) {
 			SceneManager.LoadScene(0);
@@ -36,22 +38,19 @@ public class Move : MonoBehaviour {
 		if(Input.GetButtonDown("Fire2")) {
 			start = !start;
 		}
-		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\nMOVE: {3}", Input.acceleration.x, Input.acceleration.y, Input.acceleration.z, (start ? "TRUE" : "FALSE"));
-
-		if(start) move.transform.Translate((oldVel * Time.deltaTime) + move.transform.position);
-
-		oldVel = ((Input.acceleration - Input.gyro.gravity) - oldAcc) * Time.deltaTime;
-		oldAcc = Input.acceleration - Input.gyro.gravity;
-
-		/*if(start) {
-			Vector3 trans = Input.acceleration - lowbound;
-			trans = new Vector3(trans.x, 0, -trans.y);
-			move.transform.Translate(move.transform.position + trans);
-		}
-		if(timeElapsed > 4) {
-			lowbound = Input.acceleration;
+		if(timeElapsed >= 0.16) {
+			oldAcc = newAcc / timeElapsed;
+			oldAcc = new Vector3(oldAcc.x, 0, -oldAcc.z);
+			newAcc = new Vector3(0, 0, 0);
 			timeElapsed = 0;
-		}*/
+			frameCount = 0;
+		}
+
+		if(start) capsule.AddForce(oldAcc * 100);
+		newAcc = newAcc + (Input.acceleration - Input.gyro.gravity);
+	
+		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\nMOVE: {3}", Input.acceleration.x, Input.acceleration.y, Input.acceleration.z, (start ? "TRUE" : "FALSE"));
+		oldAcc = Input.acceleration - Input.gyro.gravity;
 	}
 
 
