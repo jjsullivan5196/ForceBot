@@ -13,6 +13,9 @@ public class Move : MonoBehaviour {
 	private int frameCount;
 	private AndroidJavaObject linacc;
 	private InitJNI jinit;
+	private Vector3 oldVel;
+	private Vector3 oldAcc;
+	private Vector3 lowbound;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +26,9 @@ public class Move : MonoBehaviour {
 		start = false;
 		timeElapsed = 0;
 		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+		oldVel = new Vector3(0, 0, 0);
+		oldAcc = new Vector3(0, 0, 0);
+		lowbound = new Vector3(0, 0, 0);
 
 		AndroidJNI.AttachCurrentThread();
 		jinit = new InitJNI();
@@ -31,21 +37,25 @@ public class Move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		move.transform.rotation.eulerAngles.Set(move.transform.rotation.eulerAngles.x, this.transform.eulerAngles.y, move.transform.eulerAngles.z);
 		timeElapsed += Time.deltaTime;
 		if(Input.GetButtonDown("Fire1")) {
 			SceneManager.LoadScene(0);
+			lowbound = oldAcc;
 		}
 		if(Input.GetButtonDown("Fire2")) {
 			start = !start;
 		}
 
-		Vector3 acc = Input.acceleration;// - Input.gyro.gravity;
-		if(start) move.transform.position = Vector3.Lerp(move.transform.position, (move.transform.position + acc.normalized), 0.5f);
+		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\n MOVE: {3}", oldAcc.x, oldAcc.y, oldAcc.z, (start ? "TRUE" : "FALSE"));
+		if(start) capsule.velocity = oldVel;
+		else capsule.velocity = new Vector3(0, 0, 0);
 
 		float[] lacc = linacc.Call<float[]>("getAcceleration");
-	
-		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\n MOVE: {3}", lacc[0], lacc[1], lacc[2], (start ? "TRUE" : "FALSE"));
+		Vector3 acc = new Vector3(-lacc[1], 0, -lacc[2]);
+		acc = acc - lowbound;
+
+		oldVel = oldVel + (oldAcc * 10 * Time.deltaTime);
+		oldAcc = acc;
 	}
-
-
 }
