@@ -1,1 +1,1 @@
-include ':app', ':usensors'
+include ':usensors'

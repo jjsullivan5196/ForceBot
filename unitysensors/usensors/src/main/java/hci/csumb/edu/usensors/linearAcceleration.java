@@ -14,22 +14,18 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-public class linearAcceleration extends Service implements SensorEventListener {
+public class linearAcceleration implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor linAcc;
+    private Context context;
     private float[] acceleration;
 
-    public linearAcceleration() {
+    public linearAcceleration(Context context) {
+        this.context = context;
         acceleration = new float[3];
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         linAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         mSensorManager.registerListener(this, linAcc, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 
     @Override
@@ -44,8 +40,8 @@ public class linearAcceleration extends Service implements SensorEventListener {
 
     }
 
-    public float getAcceleration() {
-        return acceleration[0];
+    public float[] getAcceleration() {
+        return acceleration;
     }
 
 }

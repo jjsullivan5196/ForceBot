@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
+using JNIAssist;
 
 public class Move : MonoBehaviour {
 	private Rigidbody capsule;
@@ -11,10 +12,10 @@ public class Move : MonoBehaviour {
 	private float timeElapsed;
 	private int frameCount;
 	private AndroidJavaObject linacc;
+	private InitJNI jinit;
 
 	// Use this for initialization
 	void Start () {
-		AndroidJNI.AttachCurrentThread();
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
 		move = GameObject.Find("Capsule");
 		capsule = move.GetComponent<Rigidbody>();
@@ -23,7 +24,9 @@ public class Move : MonoBehaviour {
 		timeElapsed = 0;
 		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
 
-		linacc = new AndroidJavaObject("hci.csumb.edu.usensors.linearAcceleration");
+		AndroidJNI.AttachCurrentThread();
+		jinit = new InitJNI();
+		linacc = new AndroidJavaObject("hci.csumb.edu.usensors.linearAcceleration", jinit.getContext());
 	}
 	
 	// Update is called once per frame
@@ -39,11 +42,9 @@ public class Move : MonoBehaviour {
 		Vector3 acc = Input.acceleration;// - Input.gyro.gravity;
 		if(start) move.transform.position = Vector3.Lerp(move.transform.position, (move.transform.position + acc.normalized), 0.5f);
 
-		debug.text = "NOT HELLO!";
-
-		float linearAcceleration = linacc.Call<float>("getAcceleration");
+		float[] lacc = linacc.Call<float[]>("getAcceleration");
 	
-		debug.text = string.Format("X: {0:0.0000}\nMOVE: {1}", linearAcceleration, (start ? "TRUE" : "FALSE"));
+		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\n MOVE: {3}", lacc[0], lacc[1], lacc[2], (start ? "TRUE" : "FALSE"));
 	}
 
 
