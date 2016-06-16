@@ -47,7 +47,7 @@ public class Move : MonoBehaviour {
 			start = !start;
 		}
 
-		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\n MOVE: {3}", oldAcc.x, oldAcc.y, oldAcc.z, (start ? "TRUE" : "FALSE"));
+		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}\n MOVE: {3}", oldVel.x, oldVel.y, oldVel.z, (start ? "TRUE" : "FALSE"));
 		if(start) capsule.velocity = oldVel;
 		else capsule.velocity = new Vector3(0, 0, 0);
 
