@@ -1,0 +1,13 @@
+/Users/student/ForceBot/Temp/bin/Debug/UnityEngine.dll
+/Users/student/ForceBot/Temp/bin/Debug/UnityEditor.dll
+/Users/student/ForceBot/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/student/ForceBot/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/student/ForceBot/Temp/bin/Debug/Mono.Cecil.dll
+/Users/student/ForceBot/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/student/ForceBot/Temp/bin/Debug/Unity.DataContract.dll
+/Users/student/ForceBot/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/student/ForceBot/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/student/ForceBot/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/student/ForceBot/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/student/ForceBot/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/student/ForceBot/Temp/bin/Debug/Mono.Cecil.Mdb.dll
