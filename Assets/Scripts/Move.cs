@@ -21,7 +21,7 @@ public class Move : MonoBehaviour {
 		move = GameObject.Find("Capsule");
 		capsule = move.GetComponent<Rigidbody>();
 		walk = new physObj();
-		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
 		debug.text = "HELLO!";
 		start = false;
 		rawAcc = new float[] {0, 0, 0};
@@ -38,6 +38,8 @@ public class Move : MonoBehaviour {
 		//Reset
 		if(Input.GetButtonDown("Fire1")) {
 			SceneManager.LoadScene(0);
+		}
+		if(Input.GetButtonUp("Fire1")) {
 			walk.setLowBound(linacc.Call<float[]>("getAcceleration"));
 		}
 

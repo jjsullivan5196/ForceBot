@@ -14,7 +14,7 @@ namespace AccStuff {
 		}
 
 		public void calcVelocity(Vector3 acc, float time) {
-			velocity = velocity + (-acceleration * 10 * time); //Discrete time interval integration of acceleration
+			velocity = velocity + (((-acceleration) - (-lowBound)) * 10 * time); //Discrete time interval integration of acceleration
 			acceleration = acc; //Set acceleration for next frame
 		}
 
