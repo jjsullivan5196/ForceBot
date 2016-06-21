@@ -15,6 +15,8 @@ public class Move : MonoBehaviour {
 	private bool start;
 	private float[] rawAcc;
 
+
+
 	// Use this for initialization
 	void Start () {
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
@@ -38,6 +40,7 @@ public class Move : MonoBehaviour {
 		//Reset
 		if(Input.GetButtonDown("Fire1")) {
 			SceneManager.LoadScene(0);
+			walk.reset();
 		}
 		if(Input.GetButtonUp("Fire1")) {
 			walk.setLowBound(linacc.Call<float[]>("getAcceleration"));

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace AccStuff {
 	public class physObj {
@@ -14,7 +15,9 @@ namespace AccStuff {
 		}
 
 		public void calcVelocity(Vector3 acc, float time) {
-			velocity = velocity + (((-acceleration) - (-lowBound)) * 10 * time); //Discrete time interval integration of acceleration
+			acc = new Vector3(Math.Abs(acc.x) > 0 ? acc.x : 0, Math.Abs(acc.y) > 0 ? acc.y : 0, Math.Abs(acc.z) > 0 ? acc.z : 0);
+			velocity = velocity + (((-acceleration) /*- (-lowBound)*/) * 10 * time); //Discrete time interval integration of acceleration
+			velocity = new Vector3(Math.Abs(acc.x) > 0 ? velocity.x : 0, Math.Abs(acc.y) > 0 ? velocity.y : 0, Math.Abs(acc.z) > 0 ? velocity.z : 0);
 			acceleration = acc; //Set acceleration for next frame
 		}
 
