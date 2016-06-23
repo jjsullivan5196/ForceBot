@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AccStuff.cs" />
+     <Compile Include="Assets\Scripts\Direction.cs" />
      <Compile Include="Assets\Scripts\InitJNI.cs" />
-     <Compile Include="Assets\Scripts\Move.cs" />
      <Compile Include="Assets\Scripts\MovePrime.cs" />
      <Compile Include="Assets\Scripts\Record.cs" />
  <Reference Include="UnityEngine.UI">

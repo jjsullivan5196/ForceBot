@@ -30,9 +30,9 @@ public class MovePrime : MonoBehaviour {
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
 
 		lacc = new LinearAcceleration(jinit.getContext());
-		xacc = new kalman_filter();
-		yacc = new kalman_filter();
-		zacc = new kalman_filter();
+		xacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
+		yacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
+		zacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
 
 		velocity  = new Vector3(0, 0, 0);
 

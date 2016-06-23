@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Move.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Direction.cs">
     <Files>
-      <File FileName="Assets/Scripts/Move.cs" Line="33" Column="160" />
+      <File FileName="Assets/Scripts/MovePrime.cs" Line="56" Column="62" />
+      <File FileName="Assets/Scripts/AccStuff.cs" Line="8" Column="3" />
+      <File FileName="Assets/Scripts/Record.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Direction.cs" Line="32" Column="97" />
+      <File FileName="Assets/Scripts/InitJNI.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
