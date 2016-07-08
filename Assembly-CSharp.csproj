@@ -47,15 +47,20 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AccStuff.cs" />
      <Compile Include="Assets\Scripts\Camera.cs" />
+     <Compile Include="Assets\Scripts\ConnectServer.cs" />
      <Compile Include="Assets\Scripts\Direction.cs" />
      <Compile Include="Assets\Scripts\InitJNI.cs" />
      <Compile Include="Assets\Scripts\MovePrime.cs" />
      <Compile Include="Assets\Scripts\Record.cs" />
+     <Compile Include="Assets\Scripts\fricdtw.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="Renci.SshNet">
+ <HintPath>/Users/student/ForceBot/Assets/Renci.SshNet.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
