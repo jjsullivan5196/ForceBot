@@ -19,14 +19,16 @@ public class Recognize : MonoBehaviour {
 		WWW dlact = new WWW("http://10.12.174.48/data/training/step.csv");
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
 		debug.text = dlact.bytesDownloaded.ToString();
-
+		
 		timeElapsed = 0;
 
 		jinit = new InitJNI();
 		linacc = new LinearAcceleration(jinit.getContext());
 
-		activity = new RecognizerDTW[3];
-		input = new List<tPoint>[3];
+		//activity = new RecognizerDTW(dlact.text, RecognizerDTW.DATA_Y);
+		activity = new RecognizerDTW[RecognizerDTW.DATA_T];
+		input = new List<tPoint>[RecognizerDTW.DATA_T];
+
 		for(int i = 0; i < RecognizerDTW.DATA_T; i++) {
 			activity[i] = new RecognizerDTW(dlact.text, i);
 			input[i] = new List<tPoint>();
@@ -35,8 +37,9 @@ public class Recognize : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//debug.text = "";
 		timeElapsed += Time.deltaTime;
-		string temp = "";
+
 		//Update
 		float[] acc = linacc.accelerationRaw();
 		for(int i = 0; i < RecognizerDTW.DATA_T; i++)
@@ -44,16 +47,14 @@ public class Recognize : MonoBehaviour {
 
 		//Compare
 		for(int i = 0; i < RecognizerDTW.DATA_T; i++) {
-			double score = activity[i].DTWDistance(input[i]);
-			temp += string.Format("{0}: {1:0.0000}\n", i, score);
+			if(input[i].Count >= 3) {
+				double score = activity[i].DTWDistance(input[i]);
+				//debug.text += string.Format("{0}: {1:0.0000}\n", i, score);
 
-			//Trim
-			if(score < 1)
-				input[i].Clear();
-			if(score > 5)
-				input[i].RemoveAt(0);
+				//Trim
+				if(Mathf.Abs((float)score) > 100 || input[i].Count > 50)
+					input[i].Clear();
+			}
 		}
-
-		debug.text = temp;
 	}
 }

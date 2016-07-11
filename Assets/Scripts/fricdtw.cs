@@ -27,6 +27,11 @@ namespace FricDTW
 			double d = Math.Pow((p2.yDisp - p1.yDisp), 2);
 			return Math.Sqrt(d);
 		}
+
+		public string ToString()
+		{
+			return string.Format("{0}, {1}", yDisp, time);
+		}
 	}
 	
 	public class RecognizerDTW
@@ -51,6 +56,7 @@ namespace FricDTW
             string[] tdata = data.Split('\n');
             foreach(string line in tdata)
             {
+				if(line == "") break;
                 string[] d = line.Split(',');
                 train.Add(new tPoint(Double.Parse(d[field]), Double.Parse(d[DATA_T])));
             }
@@ -98,6 +104,11 @@ namespace FricDTW
 				}
 				
 			return DTW[train.Count - 1, input.Count - 1];
+		}
+
+		public List<tPoint> getTraining()
+		{
+			return train;
 		}
 	}
 
