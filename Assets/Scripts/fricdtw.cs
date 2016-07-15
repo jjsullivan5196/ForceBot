@@ -86,7 +86,7 @@ namespace FricDTW
 		
 		public double DTWDistanceWindow(List<tPoint> input, int window)
 		{
-			if(Math.Abs(train.Count - input.Count) > window) return -1;
+			if(Math.Abs(train.Count - input.Count) > window) window += (Math.Abs(train.Count - input.Count) - window);
 			
 			double[,] DTW = new double[train.Count, input.Count];
 			

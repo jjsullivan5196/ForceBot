@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using FricDTW;
 using JNIAssist;
@@ -10,51 +12,61 @@ public class Recognize : MonoBehaviour {
 	private TextMesh debug;
 	private InitJNI jinit;
 	private LinearAcceleration linacc;
-	private RecognizerDTW[] activity;
-	private List<tPoint>[] input;
+	private List<tPoint> input;
+	private RecognizerDTW[] acts;
+	private double[] scores;
+
 	private float timeElapsed;
+	private const int ACT_STEP = 0;
+	private const int ACT_STAND = 1;
+	private const int ACT_SIT = 2;
+	private const int ACT_JUMP = 3;
+	private const int ACT_FLAT = 4;
+	private const int ACT_MAX = 5;
+
+	private string[] action_names = {
+		"step",
+		"standup",
+		"sitdown",
+		"jump",
+		"flatline"
+	};
 
 	// Use this for initialization
 	void Start () {
-		WWW dlact = new WWW("http://10.12.174.48/data/training/step.csv");
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
-		debug.text = dlact.bytesDownloaded.ToString();
-		
-		timeElapsed = 0;
-
 		jinit = new InitJNI();
 		linacc = new LinearAcceleration(jinit.getContext());
+		acts = new RecognizerDTW[ACT_MAX];
+		scores = new double[ACT_MAX];
+		input = new List<tPoint>();
 
-		//activity = new RecognizerDTW(dlact.text, RecognizerDTW.DATA_Y);
-		activity = new RecognizerDTW[RecognizerDTW.DATA_T];
-		input = new List<tPoint>[RecognizerDTW.DATA_T];
-
-		for(int i = 0; i < RecognizerDTW.DATA_T; i++) {
-			activity[i] = new RecognizerDTW(dlact.text, i);
-			input[i] = new List<tPoint>();
+		string dataurl = "http://10.12.174.214/data/training/";
+		for(int i = 0; i < ACT_MAX; i++) {
+			WWW dlact = new WWW(dataurl + action_names[i] + ".csv");
+			debug.text = dlact.bytesDownloaded.ToString();
+			acts[i] = new RecognizerDTW(dlact.text, RecognizerDTW.DATA_Y);
+			scores[i] = 0;
 		}
+
+		timeElapsed = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//debug.text = "";
 		timeElapsed += Time.deltaTime;
-
-		//Update
 		float[] acc = linacc.accelerationRaw();
-		for(int i = 0; i < RecognizerDTW.DATA_T; i++)
-			input[i].Add(new tPoint(acc[i], timeElapsed));
 
-		//Compare
-		for(int i = 0; i < RecognizerDTW.DATA_T; i++) {
-			if(input[i].Count >= 3) {
-				double score = activity[i].DTWDistance(input[i]);
-				//debug.text += string.Format("{0}: {1:0.0000}\n", i, score);
+		input.Add(new tPoint(acc[RecognizerDTW.DATA_Y], timeElapsed));
 
-				//Trim
-				if(Mathf.Abs((float)score) > 100 || input[i].Count > 50)
-					input[i].Clear();
-			}
+		if(input.Count >= 3) {
+			for(int i = 0; i < ACT_MAX; i++)
+				scores[i] = acts[i].DTWDistanceWindow(input, 2);
+
+			debug.text = action_names[Array.IndexOf(scores, scores.Min())];
+
+			if(input.Count > 35)
+				input.RemoveAt(0);
 		}
 	}
 }

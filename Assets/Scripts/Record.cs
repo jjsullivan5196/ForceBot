@@ -31,7 +31,7 @@ public class Record : MonoBehaviour {
 		upload = new MemoryStream();
 		fsUpload = new StreamWriter(upload);
 		record = false;
-		uploadURL = "http://10.12.174.48/upload.php";
+		uploadURL = "http://10.12.174.214/upload.php";
 
 		timeElapsed = 0;
 	}
