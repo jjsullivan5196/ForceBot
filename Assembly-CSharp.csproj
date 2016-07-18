@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Direction.cs" />
      <Compile Include="Assets\Scripts\InitJNI.cs" />
+     <Compile Include="Assets\Scripts\InterpMove.cs" />
      <Compile Include="Assets\Scripts\MovePrime.cs" />
      <Compile Include="Assets\Scripts\Recognize.cs" />
      <Compile Include="Assets\Scripts\RecognizeLocal.cs" />
