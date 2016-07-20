@@ -12,11 +12,9 @@ public class MovePrime : MonoBehaviour {
 	private TextMesh debug;
 
 	private LinearAcceleration lacc;
-	private kalman_filter xacc;
-	private kalman_filter yacc;
-	private kalman_filter zacc;
 
 	private Vector3 velocity;
+	private Vector3 zero;
 
 	private bool start;
 
@@ -26,15 +24,13 @@ public class MovePrime : MonoBehaviour {
 		jinit = new InitJNI();
 		move = GameObject.Find("Capsule");
 		capsule = move.GetComponent<Rigidbody>();
-		capsule.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+		capsule.constraints = /*RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionX |*/ RigidbodyConstraints.FreezeRotation;
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
 
 		lacc = new LinearAcceleration(jinit.getContext());
-		xacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
-		yacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
-		zacc = new kalman_filter(0.1f, 2.8f, 0.1f, 0.0f);
 
-		velocity  = new Vector3(0, 0, 0);
+		velocity = new Vector3(0, 0, 0);
+		zero = new Vector3(0.75f, 0.75f, 0.75f);
 
 		start = false;
 	}
@@ -43,16 +39,23 @@ public class MovePrime : MonoBehaviour {
 	void Update () {
 		if(Input.GetButtonDown("Fire2"))
 			start = !start;
-		if(Input.GetButtonDown("Fire1"))
+		if(Input.GetButtonDown("Fire1")) {
 			SceneManager.LoadScene(0);
+			//float[] accZero = lacc.accelerationRaw();
+			//zero = new Vector3(Math.Abs(accZero[0]), Math.Abs(accZero[1]), Math.Abs(accZero[2]));
+		}
 
-		float[] acc = lacc.accelerationRaw();
-		Vector3 acc_filtered = new Vector3(xacc.update(acc[0]),yacc.update(acc[1]),zacc.update(acc[2]));
-		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}", acc_filtered.x, acc_filtered.y, acc_filtered.z);
+		Vector3 acc = lacc.accelerationVec();
+		debug.text = string.Format("X: {0:0.0000}\nY: {1:0.0000}\nZ: {2:0.0000}", acc.x, acc.y, acc.z);
 
-		if(start) capsule.velocity = -velocity;
+		if(start) capsule.velocity = new Vector3(velocity.x, velocity.y, -velocity.z);
 		else capsule.velocity = new Vector3(0, 0, 0);
 
-		velocity = velocity + (acc_filtered * 10 * Time.deltaTime);
+		if((Math.Abs(acc.x) > zero.x) || (Math.Abs(acc.y) > zero.y) || (Math.Abs(acc.z) > zero.z)) {
+			velocity = velocity + (acc * Time.deltaTime) * 10;
+			debug.text += "\nMOVE";
+		}
+		else
+			velocity = velocity + -(velocity/(Time.deltaTime * 1000));
 	}
 }

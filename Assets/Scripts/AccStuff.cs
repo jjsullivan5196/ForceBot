@@ -21,6 +21,24 @@ namespace AccStuff {
 		}
 	}
 
+	public class rotationVector {
+		private AndroidJavaObject sensor;
+
+		public rotationVector(AndroidJavaObject context) {
+			sensor = new AndroidJavaObject("hci.csumb.edu.usensors.rotationVector", context);
+		}
+
+		public Quaternion rotationVec() {
+			float[] rot = sensor.Call<float[]>("getRotation");
+			return new Quaternion(rot[1], rot[0], rot[2], rot[3]);
+		}
+
+		public float[] accelerationRaw() {
+			float[] rot = sensor.Call<float[]>("getRotation");
+			return new float[] {rot[1], rot[0], rot[2], rot[3]};
+		}
+	}
+
 	public class kalman_filter {
 		private float q, r, x, p, k;
 
