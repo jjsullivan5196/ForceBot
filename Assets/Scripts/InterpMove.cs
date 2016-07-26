@@ -33,11 +33,12 @@ public class InterpMove : MonoBehaviour {
 			SceneManager.LoadScene(0);
 		if(move) {
 			timer += Time.deltaTime;
-			if(timer <= 0.25) {
-				velocity += linacc.accelerationVec() * Time.deltaTime;
+			if(timer <= 0.50) {
+				Vector3 acc = linacc.accelerationVec();
+				velocity += acc * Time.deltaTime;
 			}
 			else {
-				newpos = newpos + velocity;
+				newpos = capsule.transform.position + velocity;
 				velocity = new Vector3(0, 0, 0);
 				timer = 0;
 			}
