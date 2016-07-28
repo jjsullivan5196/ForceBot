@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using JNIAssist;
 using AccStuff;
 using System;
@@ -88,14 +88,13 @@ public class NaivePosition : MonoBehaviour {
 
 	private void wsSetup() {
 		IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
-		string localIP = "";
+		List<string> localIP = new List<string>();
 
 		foreach(IPAddress ip in localIPs) {
-			if(ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-				localIP = ip.ToString();
+				localIP.Add("http://" + ip.ToString() + ":8080/remote/");
 		}
 
-		ws = new WebServer(wsResponse, "http://" + localIP + ":8080/remote/");
+		ws = new WebServer(wsResponse, localIP.ToArray());
 		ws.Run();
 	}
 

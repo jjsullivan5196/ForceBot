@@ -5,7 +5,7 @@
 3. Make note of your phone's current IP address
 4. Launch ForceBot
 5. On another internet enabled device on the same network, open a browser and go to:
-	* http://<device-ip>:8080/remote/
+	* http://\<device-ip\>:8080/remote/
 	* Replace <device-ip> with your phone's IP address.
 	* *VISIT THIS EXACT URL OR IT WILL NOT WORK!*
 6. You should see an HTML form with a few fields:

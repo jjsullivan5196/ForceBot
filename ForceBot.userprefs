@@ -1,14 +1,19 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/InitJNI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NancyTest.cs">
     <Files>
+      <File FileName="Assets/Scripts/InitJNI.cs" Line="12" Column="71" />
       <File FileName="Assets/Scripts/AccStuff.cs" Line="10" Column="87" />
       <File FileName="Assets/Scripts/MovePrime.cs" Line="56" Column="25" />
-      <File FileName="Assets/Scripts/Recognize.cs" Line="64" Column="51" />
+      <File FileName="Assets/Scripts/Recognize.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Record.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/fricdtw.cs" Line="89" Column="61" />
-      <File FileName="Assets/Scripts/InterpMove.cs" Line="36" Column="20" />
-      <File FileName="Assets/Scripts/InitJNI.cs" Line="11" Column="16" />
+      <File FileName="Assets/Scripts/fricdtw.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/InterpMove.cs" Line="36" Column="23" />
+      <File FileName="Assets/Scripts/NaivePosition.cs" Line="2" Column="35" />
+      <File FileName="Assets/Scripts/WebServer.cs" Line="54" Column="53" />
+      <File FileName="Assets/Scripts/WebTest.cs" Line="25" Column="29" />
+      <File FileName="Assets/Scripts/RecognizeLocal.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NancyTest.cs" Line="3" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
