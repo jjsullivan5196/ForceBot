@@ -87,14 +87,7 @@ public class NaivePosition : MonoBehaviour {
 	}
 
 	private void wsSetup() {
-		IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
-		List<string> localIP = new List<string>();
-
-		foreach(IPAddress ip in localIPs) {
-				localIP.Add("http://" + ip.ToString() + ":8080/remote/");
-		}
-
-		ws = new WebServer(wsResponse, localIP.ToArray());
+		ws = new WebServer(wsResponse, "http://localhost:8080/remote/");
 		ws.Run();
 	}
 
