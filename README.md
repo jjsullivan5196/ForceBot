@@ -7,7 +7,7 @@
 2. Sideload ForceBot.apk
 3. Launch ForceBot
 4. Leave the game, on your phone open a browser and go to:
-	* http://localhost>:8080/remote/
+	* http://localhost:8080/remote/
 	* **VISIT THIS EXACT URL OR IT WILL NOT WORK!**
 5. You should see an HTML form with a few fields:
 	* Magnitude Gate: The strength that at least one direction of acceleration must achieve before velocity can be updated
