@@ -52,9 +52,12 @@
      <Compile Include="Assets\Scripts\InitJNI.cs" />
      <Compile Include="Assets\Scripts\InterpMove.cs" />
      <Compile Include="Assets\Scripts\MovePrime.cs" />
+     <Compile Include="Assets\Scripts\NaivePosition.cs" />
      <Compile Include="Assets\Scripts\Recognize.cs" />
      <Compile Include="Assets\Scripts\RecognizeLocal.cs" />
      <Compile Include="Assets\Scripts\Record.cs" />
+     <Compile Include="Assets\Scripts\WebServer.cs" />
+     <Compile Include="Assets\Scripts\WebTest.cs" />
      <Compile Include="Assets\Scripts\fricdtw.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
