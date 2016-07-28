@@ -1,9 +1,9 @@
 ##To use testing workbench
 
 1. Set GearVRService to developer mode:
-	*Go to Settings->Device->Applications->Application manager->Gear VR Service->Storage->Manage storage
-	*Tap VR Service Version repeatedly until you see developer options
-	*Switch developer mode to on, switch developer icon as well so you can access these settings from the app drawer
+	* Go to Settings->Device->Applications->Application manager->Gear VR Service->Storage->Manage storage
+	* Tap VR Service Version repeatedly until you see developer options
+	* Switch developer mode to on, switch developer icon as well so you can access these settings from the app drawer
 2. Sideload ForceBot.apk
 3. Launch ForceBot
 4. Leave the game, on your phone open a browser and go to:
