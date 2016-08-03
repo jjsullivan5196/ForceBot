@@ -28,15 +28,38 @@ namespace FricDTW
 			return Math.Sqrt(d);
 		}
 
+		public static double dist(double p1, double p2)
+		{
+			double d = Math.Pow((p2 - p1), 2);
+			return Math.Sqrt(d);
+		}
+
 		public string ToString()
 		{
 			return string.Format("{0}, {1}", yDisp, time);
 		}
+
+		public static implicit operator double(tPoint t)
+		{
+			return t.yDisp;
+		}
+
+		public static implicit operator float(tPoint t)
+		{
+			return (float)t.yDisp;
+		}
+
+		public static implicit operator decimal(tPoint t)
+		{
+			return (decimal)t.yDisp;
+		}
 	}
-	
+
 	public class RecognizerDTW
 	{
-		private List<tPoint> train;
+		private List<double> train;
+		private double min;
+		private double max;
 
         public const int DATA_X = 0;
         public const int DATA_Y = 1;
@@ -45,25 +68,30 @@ namespace FricDTW
 
         public RecognizerDTW() { }
 		
-		public RecognizerDTW(List<tPoint> train)
+		public RecognizerDTW(List<double> train)
 		{
 			this.train = train;
+			min = train.Min();
+			max = train.Max();
 		}
 
         public RecognizerDTW(string data, int field)
         {
-            List<tPoint> train = new List<tPoint>();
+            List<double> train = new List<double>();
             string[] tdata = data.Split('\n');
             foreach(string line in tdata)
             {
 				if(line == "") break;
                 string[] d = line.Split(',');
-                train.Add(new tPoint(Double.Parse(d[field]), Double.Parse(d[DATA_T])));
+                train.Add(Double.Parse(d[field]));
             }
             this.train = train;
+
+			min = train.Min();
+			max = train.Max();
         }
 		
-		public double DTWDistance(List<tPoint> input)
+		public double DTWDistance(List<double> input)
 		{
 			double[,] DTW = new double[train.Count, input.Count];
 			
@@ -84,7 +112,7 @@ namespace FricDTW
 			return DTW[train.Count - 1, input.Count - 1];
 		}
 		
-		public double DTWDistanceWindow(List<tPoint> input, int window)
+		public double DTWDistanceWindow(List<double> input, int window)
 		{
 			if(Math.Abs(train.Count - input.Count) > window) window += (Math.Abs(train.Count - input.Count) - window);
 			
@@ -106,9 +134,24 @@ namespace FricDTW
 			return DTW[train.Count - 1, input.Count - 1];
 		}
 
-		public List<tPoint> getTraining()
+		public List<double> getTraining()
 		{
 			return train;
+		}
+
+		public double Min
+		{
+			get { return min; }
+		}
+
+		public double Max
+		{
+			get { return max; }
+		}
+
+		public double First
+		{
+			get { return train[0]; }
 		}
 	}
 
@@ -129,7 +172,7 @@ namespace FricDTW
                     activity[i][j] = new RecognizerDTW();
         }
 
-        public double Recognize(List<tPoint> input, int field, int step)
+        public double Recognize(List<double> input, int field, int step)
         {
             return activity[step][field].DTWDistance(input);
         }

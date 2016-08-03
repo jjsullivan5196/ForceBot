@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NaivePosition.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RecognizeLocal.cs">
     <Files>
-      <File FileName="Assets/Scripts/NaivePosition.cs" Line="91" Column="12" />
+      <File FileName="Assets/Scripts/NaivePosition.cs" Line="193" Column="150" />
       <File FileName="Assets/Scripts/WebServer.cs" Line="33" Column="22" />
+      <File FileName="Assets/Scripts/Recognize.cs" Line="42" Column="26" />
+      <File FileName="Assets/Scripts/fricdtw.cs" Line="78" Column="53" />
+      <File FileName="Assets/Scripts/RecognizeLocal.cs" Line="70" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

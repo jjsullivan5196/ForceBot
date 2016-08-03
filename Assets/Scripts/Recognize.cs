@@ -12,7 +12,7 @@ public class Recognize : MonoBehaviour {
 	private TextMesh debug;
 	private InitJNI jinit;
 	private LinearAcceleration linacc;
-	private List<tPoint> input;
+	private List<double> input;
 	private RecognizerDTW[] acts;
 	private double[] scores;
 
@@ -39,7 +39,7 @@ public class Recognize : MonoBehaviour {
 		linacc = new LinearAcceleration(jinit.getContext());
 		acts = new RecognizerDTW[ACT_MAX];
 		scores = new double[ACT_MAX];
-		input = new List<tPoint>();
+		input = new List<double>();
 
 		string dataurl = "http://10.12.174.214/data/training/";
 		for(int i = 0; i < ACT_MAX; i++) {
@@ -57,16 +57,14 @@ public class Recognize : MonoBehaviour {
 		timeElapsed += Time.deltaTime;
 		float[] acc = linacc.accelerationRaw();
 
-		input.Add(new tPoint(acc[RecognizerDTW.DATA_Y], timeElapsed));
+		input.Add((double)acc[RecognizerDTW.DATA_Y]);
 
-		if(input.Count >= 3) {
-			for(int i = 0; i < ACT_MAX; i++)
-				scores[i] = acts[i].DTWDistanceWindow(input, 2);
-
-			debug.text = action_names[Array.IndexOf(scores, scores.Min())];
-
-			if(input.Count > 35)
-				input.RemoveAt(0);
+		for(int i = 0; i < ACT_MAX; i++) {
+			if(input.Max() >= acts[i].Max && input.Min() <= acts[i].Min) {
+				debug.text += string.Format("{0}: {1}\n", action_names[i], acts[i].DTWDistance(input));
+			}
 		}
+
+		debug.text = "";
 	}
 }

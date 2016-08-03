@@ -12,9 +12,10 @@ public class RecognizeLocal : MonoBehaviour {
 	private TextMesh debug;
 	private InitJNI jinit;
 	private LinearAcceleration linacc;
-	private List<tPoint> input;
+	private List<double> input;
 	private RecognizerDTW[] acts;
 	private double[] scores;
+	private double thres;
 
 	private float timeElapsed;
 	private const int ACT_STEP = 0;
@@ -39,32 +40,35 @@ public class RecognizeLocal : MonoBehaviour {
 		linacc = new LinearAcceleration(jinit.getContext());
 		acts = new RecognizerDTW[ACT_MAX];
 		scores = new double[ACT_MAX];
-		input = new List<tPoint>();
+		input = new List<double>();
 
 		for(int i = 0; i < ACT_MAX; i++) {
 			TextAsset train = Resources.Load("training/" + action_names[i]) as TextAsset;
 			acts[i] = new RecognizerDTW(train.text, RecognizerDTW.DATA_Y);
-			scores[i] = 0;
+			scores[i] = Single.MaxValue;
 		}
 
 		timeElapsed = 0;
+		thres = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		debug.text = "ACTS:\n";
 		timeElapsed += Time.deltaTime;
 		float[] acc = linacc.accelerationRaw();
 
 		input.Add(new tPoint(acc[RecognizerDTW.DATA_Y], timeElapsed));
 
-		if(input.Count >= 3) {
-			for(int i = 0; i < ACT_MAX; i++)
-				scores[i] = acts[i].DTWDistanceWindow(input, 2);
+		for(int i = 0; i < ACT_MAX; i++) {
+			if((input.Max() >= acts[i].Max - thres && input.Max() <= acts[i].Max + thres) && (input.Min() >= acts[i].Min - thres && input.Min() <= acts[i].Min + thres)) {
+				scores[i] = acts[i].DTWDistance(input);
+				debug.text += string.Format("{0}: {1:0.0000}\n", action_names[i], scores[i]);
+			}
+			if((scores[i] < 1 || scores[i] > 8) && scores[i] != Single.MaxValue) {
+				input.Clear();
 
-			debug.text = action_names[Array.IndexOf(scores, scores.Min())];
-
-			if(input.Count > 35)
-				input.RemoveAt(0);
+			}
 		}
 	}
 }

@@ -18,6 +18,8 @@ public class NaivePosition : MonoBehaviour {
 	private GameObject move;
 	private Vector3 vel_now;
 	private Vector3 vel_pre;
+	private Vector3 vel_apply_now;
+	private Vector3 vel_apply_pre;
 	private Vector3 acc_now;
 	private Vector3 acc_pre;
 	private Vector3 pos_now;
@@ -100,6 +102,8 @@ public class NaivePosition : MonoBehaviour {
 
 		vel_now = new Vector3(0, 0, 0);
 		vel_pre = new Vector3(0, 0, 0);
+		vel_apply_now = new Vector3(0, 0, 0);
+		vel_apply_pre = new Vector3(0, 0, 0);
 		acc_now = new Vector3(0, 0, 0);
 		acc_pre = new Vector3(0, 0, 0);
 		pos_now = init_pos = move.transform.position;
@@ -169,8 +173,8 @@ public class NaivePosition : MonoBehaviour {
 				vel_now = vel_pre + -(vel_pre * timeElapsed);
 			}
 
-			Vector3 vel_apply_now = new Vector3(-vel_now.x, vel_now.y, -vel_now.z);
-			Vector3 vel_apply_pre = new Vector3(-vel_pre.x, vel_pre.y, -vel_pre.z);
+			vel_apply_now = new Vector3(-vel_now.x, vel_now.y, -vel_now.z);
+			vel_apply_pre = new Vector3(-vel_pre.x, vel_pre.y, -vel_pre.z);
 
 			//Second Integration
 			pos_now = pos_now + vel_apply_pre + ((vel_apply_now - vel_apply_pre)/2) * timeElapsed;
@@ -185,6 +189,7 @@ public class NaivePosition : MonoBehaviour {
 		}
 
 		Vector3 pos_cur = move.transform.position;
-		move.transform.position = Vector3.Lerp(move.transform.position, new Vector3(lock_x ? pos_cur.x : pos_now.x, lock_y ? pos_cur.y : pos_now.y, lock_z ? pos_cur.z : pos_now.z), 0.02f);
+		//move.transform.position = Vector3.Lerp(move.transform.position, new Vector3(lock_x ? pos_cur.x : pos_now.x, lock_y ? pos_cur.y : pos_now.y, lock_z ? pos_cur.z : pos_now.z), 0.02f);
+		move.transform.position = Vector3.Lerp(move.transform.position, move.transform.position + this.transform.forward * vel_apply_now.magnitude, 0.02f); 
 	}
 }
