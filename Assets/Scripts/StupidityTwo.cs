@@ -15,6 +15,7 @@ public class StupidityTwo : MonoBehaviour {
 	int min_index = 0;
 	int old_min_index = 0;
 	int timeout = 0;
+	string state;
 
 	int threshold = -1;
 
@@ -24,15 +25,17 @@ public class StupidityTwo : MonoBehaviour {
 		lacc = new LinearAcceleration(jinit.getContext());
 		debug = GameObject.Find("Debug").GetComponent<TextMesh>();
 		input = new List<double>();
+		state = "";
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float[] acc = lacc.accelerationRaw();
+		debug.text = acc[RecognizerDTW.DATA_Y].ToString("0.0000") + "\n" + state;
 		input.Add(acc[RecognizerDTW.DATA_Y]);
 
 		if(acc[RecognizerDTW.DATA_Y] < threshold && timeout <= 0) {
-			debug.text = "VALLEY";
+			state = "VALLEY";
 			start = true;
 			if(input[min_index] < acc[RecognizerDTW.DATA_Y]) {
 				min_index = input.Count - 1;
@@ -40,7 +43,7 @@ public class StupidityTwo : MonoBehaviour {
 		}
 
 		if(acc[RecognizerDTW.DATA_Y] >= threshold && start) {
-			debug.text = "OUT VALLEY";
+			state = "OUT VALLEY";
 			if(input[old_min_index] < 0) {
 				GetComponent<AudioSource>().Play();
 			}
