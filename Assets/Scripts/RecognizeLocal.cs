@@ -58,7 +58,7 @@ public class RecognizeLocal : MonoBehaviour {
 		timeElapsed += Time.deltaTime;
 		float[] acc = linacc.accelerationRaw();
 
-		input.Add(new tPoint(acc[RecognizerDTW.DATA_Y], timeElapsed));
+		input.Add(acc[RecognizerDTW.DATA_Y]);
 
 		for(int i = 0; i < ACT_MAX; i++) {
 			if((input.Max() >= acts[i].Max - thres && input.Max() <= acts[i].Max + thres) && (input.Min() >= acts[i].Min - thres && input.Min() <= acts[i].Min + thres)) {

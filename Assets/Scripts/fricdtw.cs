@@ -1,10 +1,3 @@
-//FricDTW -- It's just frickin DTW!!! (For common C#)
-//Implementation authored by John Sullivan (jsullivan@csumb.edu - gh:jjsullivan5196)
-//Algorithim shamelessly stolen from Wikipedia ( https://en.wikipedia.org/wiki/Dynamic_time_warping#Implementation )
-//All copies/derivations of this software fall under the MIT License ( https://opensource.org/licenses/MIT )
-//Copyright 2016 John Sullivan
-//Long live Professor Wobbrock
-
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -90,7 +83,9 @@ namespace FricDTW
 			min = train.Min();
 			max = train.Max();
         }
-		
+
+
+		//DTWDistance - gets the minimum distance mapping for two timeseries using DTW, returns minimum cumulative distance
 		public double DTWDistance(List<double> input)
 		{
 			double[,] DTW = new double[train.Count, input.Count];
@@ -111,7 +106,8 @@ namespace FricDTW
 			
 			return DTW[train.Count - 1, input.Count - 1];
 		}
-		
+
+		//DTWDistanceWindow - same as DTWDistance, uses a locality window that doesn't allow mapping beyond a given threshold (int window)
 		public double DTWDistanceWindow(List<double> input, int window)
 		{
 			if(Math.Abs(train.Count - input.Count) > window) window += (Math.Abs(train.Count - input.Count) - window);
@@ -134,9 +130,9 @@ namespace FricDTW
 			return DTW[train.Count - 1, input.Count - 1];
 		}
 
-		public List<double> getTraining()
+		public List<double> Training
 		{
-			return train;
+			get { return train; }
 		}
 
 		public double Min

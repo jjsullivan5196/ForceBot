@@ -46,9 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AccStuff.cs" />
-     <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\Direction.cs" />
-     <Compile Include="Assets\Scripts\Gyro.cs" />
      <Compile Include="Assets\Scripts\InitJNI.cs" />
      <Compile Include="Assets\Scripts\InterpMove.cs" />
      <Compile Include="Assets\Scripts\MovePrime.cs" />
@@ -56,7 +54,7 @@
      <Compile Include="Assets\Scripts\Recognize.cs" />
      <Compile Include="Assets\Scripts\RecognizeLocal.cs" />
      <Compile Include="Assets\Scripts\Record.cs" />
-     <Compile Include="Assets\Scripts\StupidityTwo.cs" />
+     <Compile Include="Assets\Scripts\ThisIsABadIdea.cs" />
      <Compile Include="Assets\Scripts\WebServer.cs" />
      <Compile Include="Assets\Scripts\WebTest.cs" />
      <Compile Include="Assets\Scripts\fricdtw.cs" />
