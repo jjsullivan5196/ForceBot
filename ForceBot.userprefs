@@ -1,15 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ThisIsABadIdea.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Record.cs">
     <Files>
-      <File FileName="Assets/Scripts/fricdtw.cs" Line="32" Column="50" />
-      <File FileName="Assets/Scripts/NaivePosition.cs" Line="191" Column="1" />
-      <File FileName="Assets/Scripts/WebServer.cs" Line="33" Column="22" />
-      <File FileName="Assets/Scripts/Recognize.cs" Line="42" Column="26" />
-      <File FileName="Assets/Scripts/RecognizeLocal.cs" Line="64" Column="53" />
-      <File FileName="Assets/Scripts/InterpMove.cs" Line="38" Column="18" />
+      <File FileName="Assets/Scripts/ThisIsABadIdea.cs" Line="40" Column="17" />
+      <File FileName="Assets/Scripts/fricdtw.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NaivePosition.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WebServer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Recognize.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/RecognizeLocal.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/InterpMove.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Record.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ThisIsABadIdea.cs" Line="9" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
